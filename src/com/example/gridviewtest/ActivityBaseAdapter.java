@@ -6,26 +6,37 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
-public class MainActivity2 extends Activity{
+public class ActivityBaseAdapter extends Activity{
 
 	private GridView gridView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_gridview);
 		gridView=(GridView)findViewById(R.id.gridview);
-		gridView.setAdapter(new MyAdapter(this));
+		gridView.setAdapter(new MyBaseAdapter(this));
 		gridView.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Toast.makeText(MainActivity2.this, ""+position, Toast.LENGTH_SHORT).show();
+				Toast.makeText(ActivityBaseAdapter.this, ""+position, Toast.LENGTH_SHORT).show();
 				
+			}
+			
+		});
+		gridView.setOnItemLongClickListener(new OnItemLongClickListener(){
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Toast.makeText(ActivityBaseAdapter.this, "LongClick "+position, Toast.LENGTH_SHORT).show();
+				return true;
 			}
 			
 		});

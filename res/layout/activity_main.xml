@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-android:numColumns="auto_fit" ，GridView的列数设置为自动 
-android:columnWidth="90dp"，每列的宽度，也就是Item的宽度
-android:stretchMode="columnWidth"，缩放与列宽大小同步
-android:verticalSpacing="10dp"，两行之间的边距，如：行一(NO.0~NO.2)与行二(NO.3~NO.5)间距为10dp
-android:horizontalSpacing="10dp"，两列之间的边距
- -->
-<RelativeLayout 
-    android:layout_width="match_parent" 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
-    >
-    <GridView 
-    android:id="@+id/gridview"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:numColumns="auto_fit"
-    android:verticalSpacing="10dp"
-    android:horizontalSpacing="10dp"
-    android:columnWidth="90dp"
-    android:stretchMode="columnWidth"
-    android:layout_gravity="center"/>
+    android:orientation="vertical" >
     
-</RelativeLayout>
 
+    <TextView
+        android:id="@+id/get_resource"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:textSize="20sp"/>
+    <Button 
+        android:id="@+id/simpleadapter_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/simpleadapter_str"/>
+
+    <Button 
+        android:id="@+id/baseadapter_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/baseadapter_str"/>
+    
+    <Button 
+        android:id="@+id/arrayadapter_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/arrayadapter_str"/>
+</LinearLayout>

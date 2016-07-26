@@ -1,80 +1,51 @@
 package com.example.gridviewtest;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnClickListener{
 
-	private String texts[]=null;
-	private int images[]=null;
-	private GridView gridView;
-	private SimpleAdapter adapter;
-	private String selectedItemText;
+	private Button simpleAdapterBtn;
+	private Button baseAdapterBtn;
+	private Button arrayAdapterBtn;
+	private TextView getResourceTV;
+	private Intent intent;
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		images=new int[]{R.drawable.alligator,R.drawable.bat,R.drawable.lion,R.drawable.monkey,R.drawable.moose,
-				R.drawable.tiger,R.drawable.toucan,R.drawable.turkey,R.drawable.turtle,R.drawable.wolf};
-		texts=new String[]{"öùÓã","òùòð","Ê¨×Ó","ºï×Ó","÷çÂ¹","ÀÏ»¢","Ï¬Äñ","»ð¼¦","ÎÚ¹ê","ÀÇ"};
-		gridView=(GridView)findViewById(R.id.gridview);
-		ArrayList<HashMap<String,Object>> listImageItem=new ArrayList<HashMap<String,Object>>();
-		for(int i=0;i<images.length;i++){
-			HashMap<String,Object> map=new HashMap<String,Object>();
-			map.put("itemImage",images[i]);
-			map.put("itemText", texts[i]);
-			listImageItem.add(map);
-		}
-		
-		adapter=new SimpleAdapter(this,
-				listImageItem,//
-				R.layout.grid_item,//
-				new String[]{"itemImage","itemText"},//
-				new int[]{R.id.itemImage,R.id.itemText}//
-				);
-		gridView.setAdapter(adapter);
-		gridView.setOnItemClickListener(new OnItemClickListener(){
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				HashMap<String ,Object> item=(HashMap<String,Object>)parent.getItemAtPosition(position);
-				selectedItemText=(String)item.get("itemText");
-				Toast.makeText(MainActivity.this, selectedItemText, Toast.LENGTH_SHORT).show();
-				
-			}
-			
-		});
+		simpleAdapterBtn=(Button)findViewById(R.id.simpleadapter_btn);
+		baseAdapterBtn=(Button)findViewById(R.id.baseadapter_btn);
+		arrayAdapterBtn=(Button)findViewById(R.id.arrayadapter_btn);
+		getResourceTV=(TextView)findViewById(R.id.get_resource);
+		getResourceTV.setText("»ñÈ¡Ô´Âë£ºhttps://github.com/dzhiqin/GridViewTest.git");
+		simpleAdapterBtn.setOnClickListener(this);
+		baseAdapterBtn.setOnClickListener(this);
+		arrayAdapterBtn.setOnClickListener(this);
+		intent=new Intent();
 	}
-
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+	public void onClick(View v) {
+		
+		switch(v.getId()){
+		case R.id.simpleadapter_btn:
+			intent.setClass(MainActivity.this, ActivitySimpleAdapter.class);
+			break;
+		case R.id.baseadapter_btn:
+			intent.setClass(MainActivity.this, ActivityBaseAdapter.class);
+			break;
+		case R.id.arrayadapter_btn:
+			intent.setClass(MainActivity.this, ActivityArrayAdapter.class);
+			break;
+        default:
+        	break;
+		}
+		startActivity(intent);
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 }
